@@ -32,7 +32,7 @@ pipeline {
 	
    stage("Deployment to k8s"){
 	   steps{
-	   	sh "kubectl apply -f"
+	   	sh "kubectl apply -f springapp.yml"
 	   }	
     }
   }
