@@ -3,6 +3,9 @@ pipeline {
   tools {
     maven 'maven3.6.3' 
   }
+  environment {
+		DOCKERHUB_CREDENTIALS=credentials('josiokoko')
+	}
   stages {
     
     stage("Maven Build"){
@@ -20,9 +23,8 @@ pipeline {
     
     stage("Push Image to Registry"){
       steps{
-        withCredentials([usernamePassword(credentialsId: 'josiokoko', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUsername')]) {
-          sh "docker login -u ${env.dockerHubUsername} -p ${env.dockerHubPassword}"
-        }
+        sh 'echo $DOCKERHUB_CREDENTIALS_PSW | sudo docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'                		
+	      echo 'Login Completed'
         sh "docker push -t josiokoko/spring-boot-mongo"
       }
     }
