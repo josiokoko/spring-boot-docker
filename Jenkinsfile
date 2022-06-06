@@ -6,6 +6,7 @@ pipeline {
   environment {
 		DOCKERHUB_CREDENTIALS=credentials('josiokoko')
 	}
+	
   stages {
     
     stage("Maven Build"){
@@ -32,7 +33,7 @@ pipeline {
    
     stage("Remove Docker Image"){
       steps{
-	sh "docker rmi $(docker images -q)"	  
+	sh 'docker rmi $(docker images -q)'	  
      }
    }
 	
@@ -44,4 +45,3 @@ pipeline {
 	  
   }
 }
-  
