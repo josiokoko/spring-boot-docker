@@ -29,7 +29,12 @@ pipeline {
         sh "docker push josiokoko/java-webapp-mongo:v3"
       }
     }
-    
+	
+   stage("Deployment to k8s"){
+	   steps{
+	   	sh "kubectl apply -f"
+	   }	
+    }
   }
 }
   
