@@ -1,6 +1,5 @@
 pipeline {
   agent any
-  def mavenHome = tool name:'mvn3.6.3'
   stages {
     
     stage("SCM Clone"){
@@ -11,7 +10,7 @@ pipeline {
     
     stage("Maven Build"){
       steps{
-        sh '${mavenHome}/bin/mvn clean package'
+        sh 'mvn3.6.3/bin/mvn clean package'
       }
     }
     
