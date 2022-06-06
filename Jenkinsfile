@@ -11,6 +11,9 @@ pipeline {
       }
     }
     
+    stage("Docker Build"){
+      sh "docker build -t josiokoko/spring-boot-mongo ."
+    }
     
   }
 }
