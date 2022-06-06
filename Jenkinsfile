@@ -11,8 +11,16 @@ pipeline {
       }
     }
     
+    stage("SonarQube Report"){
+      steps{
+        sh 'mvn sonar:sonar'
+      }
+    }
+    
     stage("Docker Build"){
-      sh "docker build -t josiokoko/spring-boot-mongo ."
+      steps{
+        sh "docker build -t josiokoko/spring-boot-mongo ."
+      }
     }
     
   }
