@@ -21,7 +21,7 @@ pipeline {
     stage("Push Image to Registry"){
       steps{
         withCredentials([string(credentialsId: 'DockerHubCredentialLatest', variable: 'DockerHubCredentialLatest')]) {
-          sh "docker login -u josiokoko --password-stdin ${DockerHubCredentialLatest}"
+          sh "docker login -u josiokoko -p ${env.DockerHubCredentialLatest}"
         }
         sh "docker push -t josiokoko/spring-boot-mongo"
       }
