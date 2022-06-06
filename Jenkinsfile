@@ -25,7 +25,7 @@ pipeline {
       steps{
         sh 'echo $DOCKERHUB_CREDENTIALS_PSW | sudo docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'                		
 	      echo 'Login Completed'
-        sh "docker push -t josiokoko/spring-boot-mongo"
+        sh "docker push josiokoko/spring-boot-mongo"
       }
     }
     
