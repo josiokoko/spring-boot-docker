@@ -24,7 +24,7 @@ pipeline {
     stage("Push Image to Registry"){
       steps{
 	sh "docker tag josiokoko/spring-boot-mongo:latest josiokoko/java-webapp-mongo:v2"
-        // sh 'echo $DOCKERHUB_CREDENTIALS_PSW | sudo docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'                		
+        sh 'echo $DOCKERHUB_CREDENTIALS_PSW | sudo docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'                		
 	echo 'Login Completed'
         sh "docker push josiokoko/java-webapp-mongo:v2"
       }
