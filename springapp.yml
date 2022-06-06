@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: springappcontainer
-        image: josiokoko/java-webapp-mongo
+        image: josiokoko/java-webapp-mongo:v3
         ports:
         - containerPort: 8080
         env:
