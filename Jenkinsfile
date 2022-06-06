@@ -29,12 +29,19 @@ pipeline {
         sh "docker push josiokoko/java-webapp-mongo:v3"
       }
     }
+   
+    stage("Remove Docker Image"){
+      steps{
+	sh "docker rmi $(docker images -q)"	  
+     }
+   }
 	
    stage("Deployment to k8s"){
-	   steps{
-	   	sh "kubectl apply -f springapp.yml"
-	   }	
+     steps{
+	sh "kubectl apply -f springapp.yml"
+     }	
     }
+	  
   }
 }
   
