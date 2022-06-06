@@ -18,6 +18,15 @@ pipeline {
       }
     }
     
+    stage("Push Image to Registry"){
+      steps{
+        withCredentials([string(credentialsId: 'DockerHubCredential', variable: 'DockerHubCredential')]) {
+          sh "docker login -u josiokoko -p ${DockerHubCredential}"
+        }
+        sh "docker push -t josiokoko/spring-boot-mongo"
+      }
+    }
+    
   }
 }
   
