@@ -15,9 +15,11 @@ pipeline {
       }
     }
 	  
-    stage("Maven Sonar"){
-      steps{
-        sh 'mvn sonar:sonar'
+    stage("Sonarqube Code Quality"){
+      steps {
+         withSonarQubeEnv('sonarqube') {
+            sh "mvn sonar:sonar"
+          }
       }
     }
     
