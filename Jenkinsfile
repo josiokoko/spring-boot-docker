@@ -1,7 +1,8 @@
 pipeline {
   agent any
   tools {
-    maven 'maven3.6.3' 
+    maven 'maven3.6.3'
+    jdk 'jdk1.8'
   }
   environment {
 		DOCKERHUB_CREDENTIALS=credentials('josiokoko')
