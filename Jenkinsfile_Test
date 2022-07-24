@@ -9,13 +9,7 @@ pipeline {
 	}
 	
   stages {
-    
-    stage("Checkout"){
-        steps{
-          checkout scm
-        }
-    }
-    
+  
     stage("Maven Build"){
       steps{
         sh 'mvn clean package'
@@ -31,10 +25,10 @@ pipeline {
     
     stage("Push Image to Registry"){
       steps{
-	sh "docker tag josiokoko/spring-boot-mongo:latest josiokoko/java-webapp-mongo"
+	sh "docker tag josiokoko/spring-boot-mongo:latest josiokoko/java-provost"
         sh 'echo $DOCKERHUB_CREDENTIALS_PSW | sudo docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'                		
 	echo 'Login Completed'
-        sh "docker push josiokoko/java-webapp-mongo"
+        sh "docker push josiokoko/java-provost"
       }
     }
    
