@@ -15,20 +15,7 @@ pipeline {
         sh 'mvn clean package'
       }
     }
-    
-    
-#    stage("Code Quality"){
-#     steps{
-#        sh 'mvn sonar:sonar'
-#      }
-#    }
-	
-#   stage("Code Quality"){
-#      steps{
-#        sh 'mvn deploy'
-#      }
-#    }
-	  
+      
     
     stage("Docker Build"){
       steps{
