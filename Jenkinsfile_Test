@@ -38,7 +38,12 @@ pipeline {
 	sh 'docker rmi -f $(docker images -q)'	  
      }
    }
-	
+   
+    stage("Deployment to k8s"){
+     steps{
+	sh "kubectl apply -f springapp.yml"
+     }	
+    }
 	  
   }
 }
