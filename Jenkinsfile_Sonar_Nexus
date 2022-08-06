@@ -1,0 +1,56 @@
+pipeline {
+  agent any
+  tools {
+    maven 'maven3.6.3'
+    jdk 'jdk1.8'
+  }
+  environment {
+		DOCKERHUB_CREDENTIALS=credentials('DockerHub-josiokoko')
+	}
+	
+  stages {
+  
+    stage("Maven Build"){
+      steps{
+        sh 'mvn clean package'
+      }
+    }
+    
+    stage("Code Quality"){
+      steps{
+        sh 'mvn sonar:sonar'
+      }
+    }
+    
+    stage("Upload Artifact"){
+      steps{
+        sh 'mvn deploy'
+      }
+    }
+      
+    
+    stage("Docker Build"){
+      steps{
+        sh "docker build -t josiokoko/spring-boot-mongo ."
+      }
+    }
+    
+    stage("Push Image to Registry"){
+      steps{
+	sh "docker tag josiokoko/spring-boot-mongo josiokoko/java-provost:${currentBuild.number}"
+        sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+	
+	echo 'Login Completed'
+        sh "docker push josiokoko/java-provost:${currentBuild.number}"
+      }
+    }
+   
+    stage("Remove Docker Image"){
+      steps{
+	sh 'docker rmi -f $(docker images -q)'	  
+     }
+   }
+	
+	  
+  }
+}
