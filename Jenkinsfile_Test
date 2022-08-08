@@ -24,21 +24,16 @@ pipeline {
     
     stage("Push Image to Registry"){
       steps{
-	sh "docker tag josiokoko/spring-boot-mongo josiokoko/java-provost:${currentBuild.number}"
+	// sh "docker tag josiokoko/spring-boot-mongo josiokoko/java-provost:${currentBuild.number}"
+	sh "docker tag josiokoko/spring-boot-mongo josiokoko/java-provost"
         sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
 	
 	echo 'Login Completed'
-        sh "docker push josiokoko/java-provost:${currentBuild.number}"
+        sh "docker push josiokoko/java-provost"
       }
     }
     
    
-    stage("Remove Docker Image"){
-      steps{
-	// sh 'docker rmi -f $(docker images -q)'
-	sh 'docker rmi josiokoko/java-provost:${currentBuild.number}'
-     }
-   }
    
     stage("Deployment to k8s"){
      steps{
