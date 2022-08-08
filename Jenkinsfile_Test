@@ -35,7 +35,8 @@ pipeline {
    
     stage("Remove Docker Image"){
       steps{
-	sh 'docker rmi -f $(docker images -q)'	  
+	// sh 'docker rmi -f $(docker images -q)'
+	sh 'docker rmi josiokoko/java-provost:${currentBuild.number}'
      }
    }
    
