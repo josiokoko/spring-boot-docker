@@ -32,6 +32,22 @@ pipeline {
         sh "docker push josiokoko/java-provost:${currentBuild.number}"
       }
     }
+    
+    stage("Push Image to Registry B"){
+      environment {
+      	registryCredential = 'DockerHub-josiokoko'
+      }
+      steps{
+      	script {
+		sh "docker tag josiokoko/spring-boot-mongo josiokoko/java-provost:${currentBuild.number}-b"
+		
+		docker.withRegistry( 'https://registry.hub.docker.com', registryCredential ) {
+			sh "docker push josiokoko/java-provost:${currentBuild.number}-b"
+	    	}
+		echo 'Push Completed'
+            }
+        }
+    }
    
     stage("Remove Docker Image"){
       steps{
