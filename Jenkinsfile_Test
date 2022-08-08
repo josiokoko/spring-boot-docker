@@ -33,6 +33,13 @@ pipeline {
       }
     }
     
+    stage('Deploying App to Kubernetes'){
+    	steps{
+	   script {
+	   	kubernetesDeploy(configs: "springapp.yml", kubeconfigId: "kubernetes")
+	   }
+	}
+    }
    
    
     stage("Deployment to k8s"){
